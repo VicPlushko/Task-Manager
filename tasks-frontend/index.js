@@ -40,7 +40,7 @@ function makeTaskList(task) {
     debugger
     return (
         `<li>
-            <a href="" data-id="${task.id}">${task.name}</a> - ${todo.completed ? "Completed" : "Not Completed"}
+            <a href="" data-id="${task.id}">${task.name}</a> - ${task.completed ? "Completed" : "Not Completed"}
         </li>`
     )
 };
