@@ -14,33 +14,50 @@ const bedtimeUl = bedtime.querySelector('ul')
 //  ***************************** start up routine **************************************************
 document.addEventListener("DOMContentLoaded", () =>{
     getAllTasks()
-    // getHomeworkTasks()
-    // getChores()
-    // getBedtimeTasks()
 });
 
 
 //  **************************** requests to backend ************************************************
 function getAllTasks() {
+    taskFormDiv.innerHTML = ''
     fetch(BASE_URL + '/tasks')
     .then(response => response.json())
     .then(tasks => {
-        if (tasks.routine === "Morning") {
-            morningUl.innerHTML = makeTaskList(task)
-        }
-     debugger
-    })
-}
+        tasks.forEach(function(task) {
+           if (task.routine === "Morning") {
+            morningUl.innerHTML += makeTaskList(task)
+           } else if (task.routine === "Homework") {
+               homeworkUl.innerHTML += makeTaskList(task)
+           } else if (task.routine === "Chore") {
+               choresUl.innerHTML += makeTaskList(task)
+           } else if (task.routine === "Bedtime") {
+               bedtimeUl.innerHTML += makeTaskList(task)
+           }
+        });
+        
+    });
+    clickOnLinks()
+};
 
+function showTask() {
+    event.preventDefault()
+}
 
 
 //  ********** helpers for generating HTML and adding event listeners *******************************
 
 function makeTaskList(task) {
-    debugger
     return (
         `<li>
             <a href="" data-id="${task.id}">${task.name}</a> - ${task.completed ? "Completed" : "Not Completed"}
         </li>`
     )
 };
+
+function clickOnLinks() {
+    const liLinks = document.querySelectorAll("li a")
+
+    liLinks.forEach(aTag => {
+        aTag.addEventListener('click', showTask)
+    })
+}
