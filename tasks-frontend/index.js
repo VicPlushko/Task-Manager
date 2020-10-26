@@ -36,7 +36,7 @@ function getAllTasks() {
         });
         
     });
-    clickOnLinks()
+    clickOnTasks()
 };
 
 function showTask() {
@@ -54,8 +54,9 @@ function makeTaskList(task) {
     )
 };
 
-function clickOnLinks() {
+function clickOnTasks() {
     const liLinks = document.querySelectorAll("li a")
+    debugger
 
     liLinks.forEach(aTag => {
         aTag.addEventListener('click', showTask)
