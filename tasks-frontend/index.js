@@ -34,14 +34,33 @@ function getAllTasks() {
                bedtimeUl.innerHTML += makeTaskList(task)
            }
         });
-        
+        clickOnTasks()
     });
-    clickOnTasks()
 };
 
 function showTask() {
     event.preventDefault()
-}
+    const taskId = event.target.dataset.id
+
+    fetch(BASE_URL + '/tasks/' + taskId)
+    .then(response => response.json())
+    .then(task => {
+        if (task.routine === "Morning") {
+            morningRoutine.innerHTML = ""
+            morningUl.innerHTML += showSingleTask(task)
+        } else if (task.routine === "Homework") {
+            homework.innerHTML = ""
+            homeworkUl.innerHTML += showSingleTask(task)
+        } else if (task.routine === "Chore") {
+            chores.innerHTML = ""
+            choresUl.innerHTML += showSingleTask(task)
+        } else if (task.routine === "Bedtime") {
+            bedtime.innerHTML = ""
+            bedtimeUl.innerHTML += showSingleTask(task)
+        }
+
+    });
+};
 
 
 //  ********** helpers for generating HTML and adding event listeners *******************************
@@ -56,9 +75,10 @@ function makeTaskList(task) {
 
 function clickOnTasks() {
     const liLinks = document.querySelectorAll("li a")
-    debugger
 
     liLinks.forEach(aTag => {
         aTag.addEventListener('click', showTask)
     })
+    
+    // newTaskForm.addEventListener('click', showNewForm)
 }
