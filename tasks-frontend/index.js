@@ -99,8 +99,7 @@ function showSingleTask(task) {
         } else if (task.routine === "Bedtime") {
             bedtime.appendChild(div)
         }
-    }
-    return instructions.description  
+    }  
 }
 
 function clickOnTasks() {
