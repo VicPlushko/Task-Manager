@@ -46,16 +46,16 @@ function showTask() {
     .then(response => response.json())
     .then(task => {
         if (task.routine === "Morning") {
-            morningRoutine.innerHTML = ""
+            morningUl.innerHTML = ""
             morningUl.innerHTML += showSingleTask(task)
         } else if (task.routine === "Homework") {
-            homework.innerHTML = ""
+            homeworkUl.innerHTML = ""
             homeworkUl.innerHTML += showSingleTask(task)
         } else if (task.routine === "Chore") {
-            chores.innerHTML = ""
+            choresUl.innerHTML = ""
             choresUl.innerHTML += showSingleTask(task)
         } else if (task.routine === "Bedtime") {
-            bedtime.innerHTML = ""
+            bedtimeUl.innerHTML = ""
             bedtimeUl.innerHTML += showSingleTask(task)
         }
 
@@ -74,6 +74,27 @@ function makeTaskList(task) {
         </li>`
     )
 };
+
+function showSingleTask(task) {
+    let taskH3 = document.createElement('h3')
+    taskH3.innerHTML = `${task.name}`
+    let instructions = task.instructions
+    
+    for (let i = 0; i < instructions.length; i++) {
+        const li = document.createElement('li')
+
+        li.innerHTML = instructions[i];
+        if (task.routine === "Morning") {
+            morningUl.appendChild(li)
+        } else if (task.routine === "Homework") {
+            homeworkUl.appendChild(li)
+        } else if (task.routine === "Chore") {
+            choresUl.appendChild(li)
+        } else if (task.routine === "Bedtime") {
+            bedtimeUl.appendChild(li)
+        }
+    }
+}
 
 function clickOnTasks() {
     const liLinks = document.querySelectorAll("li a")
