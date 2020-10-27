@@ -76,29 +76,32 @@ function makeTaskList(task) {
 };
 
 function showSingleTask(task) {
+
+    const div = document.createElement('div');
     let taskH3 = document.createElement('h3')
     taskH3.innerHTML = `${task.name}`
     let ul = document.createElement('ul')
+    const li = document.createElement('li')
     let instructions = task.instructions
     
     for (let i = 0; i < instructions.length; i++) {
-        const li = document.createElement('li')
-    
-
+        
         li.innerHTML = instructions[i].description;
         ul.appendChild(li)
+        div.appendChild(taskH3)
+        div.appendChild(ul)
         if (task.routine === "Morning") {
-            morningRoutine.appendChild(ul)
+            morningRoutine.appendChild(div)
         } else if (task.routine === "Homework") {
-            homework.appendChild(ul)
+            homework.appendChild(div)
         } else if (task.routine === "Chore") {
-            chores.appendChild(ul)
+            chores.appendChild(div)
         } else if (task.routine === "Bedtime") {
-            bedtime.appendChild(ul)
+            bedtime.appendChild(div)
         }
         debugger
     }
-
+    return instructions.decription
 }
 
 function clickOnTasks() {
