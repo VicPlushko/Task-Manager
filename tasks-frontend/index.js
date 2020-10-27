@@ -47,16 +47,16 @@ function showTask() {
     .then(task => {
         if (task.routine === "Morning") {
             morningRoutine.innerHTML = ""
-            morningRoutine.innerHTML += showSingleTask(task)
+            showSingleTask(task)
         } else if (task.routine === "Homework") {
             homework.innerHTML = ""
-            homework.innerHTML += showSingleTask(task)
+            showSingleTask(task)
         } else if (task.routine === "Chore") {
             chores.innerHTML = ""
-            chores.innerHTML += showSingleTask(task)
+            showSingleTask(task)
         } else if (task.routine === "Bedtime") {
             bedtime.innerHTML = ""
-            bedtime.innerHTML += showSingleTask(task)
+            showSingleTask(task)
         }
 
     });
@@ -81,11 +81,11 @@ function showSingleTask(task) {
     let taskH3 = document.createElement('h3')
     taskH3.innerHTML = `${task.name}`
     let ul = document.createElement('ul')
-    const li = document.createElement('li')
+    
     let instructions = task.instructions
     
     for (let i = 0; i < instructions.length; i++) {
-        
+        const li = document.createElement('li')
         li.innerHTML = instructions[i].description;
         ul.appendChild(li)
         div.appendChild(taskH3)
@@ -99,9 +99,8 @@ function showSingleTask(task) {
         } else if (task.routine === "Bedtime") {
             bedtime.appendChild(div)
         }
-        debugger
     }
-    return instructions.decription
+    return instructions.description  
 }
 
 function clickOnTasks() {
