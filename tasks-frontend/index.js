@@ -46,17 +46,17 @@ function showTask() {
     .then(response => response.json())
     .then(task => {
         if (task.routine === "Morning") {
-            morningUl.innerHTML = ""
-            morningUl.innerHTML += showSingleTask(task)
+            morningRoutine.innerHTML = ""
+            morningRoutine.innerHTML += showSingleTask(task)
         } else if (task.routine === "Homework") {
-            homeworkUl.innerHTML = ""
-            homeworkUl.innerHTML += showSingleTask(task)
+            homework.innerHTML = ""
+            homework.innerHTML += showSingleTask(task)
         } else if (task.routine === "Chore") {
-            choresUl.innerHTML = ""
-            choresUl.innerHTML += showSingleTask(task)
+            chores.innerHTML = ""
+            chores.innerHTML += showSingleTask(task)
         } else if (task.routine === "Bedtime") {
-            bedtimeUl.innerHTML = ""
-            bedtimeUl.innerHTML += showSingleTask(task)
+            bedtime.innerHTML = ""
+            bedtime.innerHTML += showSingleTask(task)
         }
 
     });
@@ -78,22 +78,27 @@ function makeTaskList(task) {
 function showSingleTask(task) {
     let taskH3 = document.createElement('h3')
     taskH3.innerHTML = `${task.name}`
+    let ul = document.createElement('ul')
     let instructions = task.instructions
     
     for (let i = 0; i < instructions.length; i++) {
         const li = document.createElement('li')
+    
 
-        li.innerHTML = instructions[i];
+        li.innerHTML = instructions[i].description;
+        ul.appendChild(li)
         if (task.routine === "Morning") {
-            morningUl.appendChild(li)
+            morningRoutine.appendChild(ul)
         } else if (task.routine === "Homework") {
-            homeworkUl.appendChild(li)
+            homework.appendChild(ul)
         } else if (task.routine === "Chore") {
-            choresUl.appendChild(li)
+            chores.appendChild(ul)
         } else if (task.routine === "Bedtime") {
-            bedtimeUl.appendChild(li)
+            bedtime.appendChild(ul)
         }
+        debugger
     }
+
 }
 
 function clickOnTasks() {
