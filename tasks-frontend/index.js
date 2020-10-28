@@ -63,6 +63,30 @@ function showTask() {
     });
 };
 
+function createTask() {
+    event.preventDefault()
+
+    const task = {
+        Task: document.getElementById('task-name').value,
+        Routine: document.getElementById('task-routine').value,
+        Instructions: document.getElementById('instruction-1').value
+    }
+
+    const configObj = {
+        method: 'POST',
+        body: JSON.stringify(task),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+
+    fetch(BASE_URL + "/tasks/", configObj)
+    .then(response => response.json())
+    .then(task => console.log(task))
+}
+
+
 
 
 
@@ -75,6 +99,34 @@ function makeTaskList(task) {
         </li>`
     )
 };
+
+function taskForm() {
+    return (`
+        <form id="new-form">
+            <label for="name">Task:</label>      
+            <input type="text" id="task-name" placeholder="Task Name"><br>
+            <label for="routine">Routine:</label>
+            <select name="routine" id="task-routine">
+               <option value="morning">Morning</option>
+               <option value="homework">Homework</option>
+               <option value="chores">Chores</option>
+               <option value="bedtime">Bedtime</option>
+            </select><br>
+            <label for="instruction">Instruction:</label>
+            <input type="text" id="instruction-1" placeholder="Add Instruction Here"><br><br>
+            <input type="submit">
+        </form>
+    `)
+}
+
+function showNewForm() {
+    const taskFormHTML = taskForm()
+    taskFormDiv.innerHTML += taskFormHTML
+    document.getElementById("new-form").addEventListener('submit', createTask)
+    
+}
+
+
 
 function showSingleTask(task) {
 
@@ -119,7 +171,7 @@ function clickOnTasks() {
         aTag.addEventListener('click', showTask)
     })
     
-    // newTaskForm.addEventListener('click', showNewForm)
+    newTaskForm.addEventListener('click', showNewForm)
     tasks.addEventListener('click', getAllTasks) // ask about doubleing when clicked
 }
 
