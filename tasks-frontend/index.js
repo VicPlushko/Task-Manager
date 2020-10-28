@@ -4,6 +4,7 @@ const morningRoutine = document.getElementById('morning-routine')
 const homework = document.getElementById('homework')
 const chores = document.getElementById('chores')
 const bedtime = document.getElementById('bedtime')
+const tasks = document.getElementById('tasks')
 const newTaskForm = document.getElementById('new-task-form')
 const taskFormDiv = document.getElementById('task-form')
 const morningUl = morningRoutine.querySelector('ul')
@@ -86,7 +87,15 @@ function showSingleTask(task) {
     
     for (let i = 0; i < instructions.length; i++) {
         const li = document.createElement('li')
-        li.innerHTML = instructions[i].description;
+        const checkbox = document.createElement('input')
+        checkbox.type = "checkbox"
+        checkbox.className = "checkbox"
+        checkbox.checked = false
+        li.appendChild(checkbox)
+
+        const text = document.createTextNode(`${instructions[i].description}`)
+        li.appendChild(text)
+        
         ul.appendChild(li)
         div.appendChild(taskH3)
         div.appendChild(ul)
@@ -99,7 +108,8 @@ function showSingleTask(task) {
         } else if (task.routine === "Bedtime") {
             bedtime.appendChild(div)
         }
-    }  
+    }
+
 }
 
 function clickOnTasks() {
@@ -110,4 +120,23 @@ function clickOnTasks() {
     })
     
     // newTaskForm.addEventListener('click', showNewForm)
+    tasks.addEventListener('click', getAllTasks) // ask about doubleing when clicked
 }
+
+// function clickOnCheckbox() {
+//     const cb = document.querySelectorAll(".checkbox")
+    
+//     cb.addEventListener('click', changeCompletedStatus)
+//     debugger
+// }
+
+// function changeCompletedStatus(instructions) {
+//     document.querySelectorAll(".checkbox").onclick = function() {
+//         if (this.checked) {
+//             instructions.completed = true
+//         } else {
+//             instructions.completed = false
+//         }
+        
+//     }
+// }
