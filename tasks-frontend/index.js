@@ -15,16 +15,28 @@ const bedtimeUl = bedtime.querySelector('ul')
 //  ***************************** start up routine **************************************************
 document.addEventListener("DOMContentLoaded", () =>{
     getAllTasks()
+    tasks.addEventListener('click', () => {
+        console.log(event.target)
+        event.preventDefault()
+        getAllTasks()
+
+       
+    })
 });
 
 
 //  **************************** requests to backend ************************************************
 function getAllTasks() {
     taskFormDiv.innerHTML = ''
+    
     fetch(BASE_URL + '/tasks')
     .then(response => response.json())
-    .then(tasks => {
-        tasks.forEach(function(task) {
+    .then(allTasks => {
+        morningUl.innerHTML = ''
+        homeworkUl.innerHTML = ''
+        choresUl.innerHTML = ''
+        bedtimeUl.innerHTML = ''
+        allTasks.forEach(function(task) {
            if (task.routine === "Morning") {
             morningUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Homework") {
@@ -34,12 +46,14 @@ function getAllTasks() {
            } else if (task.routine === "Bedtime") {
                bedtimeUl.innerHTML += makeTaskList(task)
            }
+        
         });
         clickOnTasks()
     });
 };
 
 function showTask() {
+    
     event.preventDefault()
     const taskId = event.target.dataset.id
 
@@ -59,6 +73,7 @@ function showTask() {
             bedtime.innerHTML = ""
             showSingleTask(task)
         }
+        debugger
 
     });
 };
@@ -67,9 +82,10 @@ function createTask() {
     event.preventDefault()
 
     const task = {
-        Task: document.getElementById('task-name').value,
-        Routine: document.getElementById('task-routine').value,
-        Instructions: document.getElementById('instruction-1').value
+        name: document.getElementById('task-name').value,
+        completed: document.getElementById('completed').value,
+        routine: document.getElementById('task-routine').value,
+        instructions: document.getElementById('instruction-1').value
     }
 
     const configObj = {
@@ -81,9 +97,19 @@ function createTask() {
         }
     }
 
-    fetch(BASE_URL + "/tasks/", configObj)
+    fetch(BASE_URL + "/tasks", configObj)
     .then(response => response.json())
-    .then(task => console.log(task))
+    .then(task => {
+        if (task.routine === "Morning") {
+            morningUl.innerHTML += makeTaskList(task)
+           } else if (task.routine === "Homework") {
+               homeworkUl.innerHTML += makeTaskList(task)
+           } else if (task.routine === "Chore") {
+               choresUl.innerHTML += makeTaskList(task)
+           } else if (task.routine === "Bedtime") {
+               bedtimeUl.innerHTML += makeTaskList(task)
+           }
+    })
 }
 
 
@@ -104,13 +130,15 @@ function taskForm() {
     return (`
         <form id="new-form">
             <label for="name">Task:</label>      
-            <input type="text" id="task-name" placeholder="Task Name"><br>
+            <input type="text" id="task-name" placeholder="Task Name">
+            <label for="completed">Completed?:</label>
+            <input type="checkbox" id="completed" value="true"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
-               <option value="morning">Morning</option>
-               <option value="homework">Homework</option>
-               <option value="chores">Chores</option>
-               <option value="bedtime">Bedtime</option>
+               <option value="Morning">Morning</option>
+               <option value="Homework">Homework</option>
+               <option value="Chore">Chores</option>
+               <option value="Bedtime">Bedtime</option>
             </select><br>
             <label for="instruction">Instruction:</label>
             <input type="text" id="instruction-1" placeholder="Add Instruction Here"><br><br>
@@ -131,6 +159,7 @@ function showNewForm() {
 function showSingleTask(task) {
 
     const div = document.createElement('div');
+    div.className = "show-task"
     let taskH3 = document.createElement('h3')
     taskH3.innerHTML = `${task.name}`
     let ul = document.createElement('ul')
@@ -172,7 +201,6 @@ function clickOnTasks() {
     })
     
     newTaskForm.addEventListener('click', showNewForm)
-    tasks.addEventListener('click', getAllTasks) // ask about doubleing when clicked
 }
 
 // function clickOnCheckbox() {

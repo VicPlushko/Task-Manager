@@ -15,6 +15,7 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
+    # binding.pry
     @task = Task.new(task_params)
 
     if @task.save
@@ -46,6 +47,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:name, :completed)
+      params.require(:task).permit(:name, :routine, :completed)
     end
 end
