@@ -1,5 +1,6 @@
 //  ***************************** global constants **************************************************
 const BASE_URL = 'http://localhost:3000'
+const mainDiv = document.getElementById('main-div')
 const morningRoutine = document.getElementById('morning-routine')
 const homework = document.getElementById('homework')
 const chores = document.getElementById('chores')
@@ -16,11 +17,9 @@ const bedtimeUl = bedtime.querySelector('ul')
 document.addEventListener("DOMContentLoaded", () =>{
     getAllTasks()
     tasks.addEventListener('click', () => {
-        console.log(event.target)
         event.preventDefault()
         getAllTasks()
 
-       
     })
 });
 
@@ -38,13 +37,31 @@ function getAllTasks() {
         bedtimeUl.innerHTML = ''
         allTasks.forEach(function(task) {
            if (task.routine === "Morning") {
+            console.log("before block", morningUl)
+            console.log("before block", task.routine)
             morningUl.innerHTML += makeTaskList(task)
+            console.log("after block", morningUl)
+               console.log("after block", task.routine)
            } else if (task.routine === "Homework") {
+            console.log("before block", homeworkUl)
+            console.log("before block", task.routine)
                homeworkUl.innerHTML += makeTaskList(task)
+               console.log("after block", homeworkUl)
+               console.log("after block", task.routine)
            } else if (task.routine === "Chore") {
+            console.log("before block", choresUl)
+            console.log("before block", task.routine)
                choresUl.innerHTML += makeTaskList(task)
+               console.log("after block", choresUl)
+               console.log("after block", task.routine)
            } else if (task.routine === "Bedtime") {
+            console.log("before block", bedtimeUl)
+            console.log("before block", task.routine)
                bedtimeUl.innerHTML += makeTaskList(task)
+               console.log("after block", bedtimeUl)
+               console.log("after block", task.routine)
+           } else {
+               console.log("in else", task.name)
            }
         
         });
@@ -61,7 +78,7 @@ function showTask() {
     .then(response => response.json())
     .then(task => {
         if (task.routine === "Morning") {
-            morningRoutine.innerHTML = ""
+            mainDiv.innerHTML = ""
             showSingleTask(task)
         } else if (task.routine === "Homework") {
             homework.innerHTML = ""
@@ -181,7 +198,7 @@ function showSingleTask(task) {
         div.appendChild(taskH3)
         div.appendChild(ul)
         if (task.routine === "Morning") {
-            morningRoutine.appendChild(div)
+            mainDiv.appendChild(div)
         } else if (task.routine === "Homework") {
             homework.appendChild(div)
         } else if (task.routine === "Chore") {
