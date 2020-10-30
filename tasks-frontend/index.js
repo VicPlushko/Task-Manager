@@ -37,29 +37,13 @@ function getAllTasks() {
         bedtimeUl.innerHTML = ''
         allTasks.forEach(function(task) {
            if (task.routine === "Morning") {
-            console.log("before block", morningUl)
-            console.log("before block", task.routine)
             morningUl.innerHTML += makeTaskList(task)
-            console.log("after block", morningUl)
-               console.log("after block", task.routine)
            } else if (task.routine === "Homework") {
-            console.log("before block", homeworkUl)
-            console.log("before block", task.routine)
                homeworkUl.innerHTML += makeTaskList(task)
-               console.log("after block", homeworkUl)
-               console.log("after block", task.routine)
            } else if (task.routine === "Chore") {
-            console.log("before block", choresUl)
-            console.log("before block", task.routine)
                choresUl.innerHTML += makeTaskList(task)
-               console.log("after block", choresUl)
-               console.log("after block", task.routine)
            } else if (task.routine === "Bedtime") {
-            console.log("before block", bedtimeUl)
-            console.log("before block", task.routine)
                bedtimeUl.innerHTML += makeTaskList(task)
-               console.log("after block", bedtimeUl)
-               console.log("after block", task.routine)
            } else {
                console.log("in else", task.name)
            }
@@ -90,9 +74,11 @@ function showTask() {
             bedtime.innerHTML = ""
             showSingleTask(task)
         }
-        debugger
-
     });
+    tasks.addEventListener('click', () => {
+        event.preventDefault()
+        getAllTasks()
+    })
 };
 
 function createTask() {
@@ -186,6 +172,11 @@ function showSingleTask(task) {
     for (let i = 0; i < instructions.length; i++) {
         const li = document.createElement('li')
         const checkbox = document.createElement('input')
+        // const deleteBtn = document.createElement('button')
+        // deleteBtn.id = 'delete'
+        // deleteBtn.setAttribute('data-id', `${task.id}`)
+        // const editBtn = documennt.createElement('button')
+
         checkbox.type = "checkbox"
         checkbox.className = "checkbox"
         checkbox.checked = false
