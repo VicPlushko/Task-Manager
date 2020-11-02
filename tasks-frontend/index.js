@@ -88,7 +88,7 @@ function createTask() {
         name: document.getElementById('task-name').value,
         completed: document.getElementById('completed').value,
         routine: document.getElementById('task-routine').value,
-        instructions: document.getElementById('instruction-1').value
+        // instructions: document.getElementById('instruction-1').value
     }
 
     const configObj = {
@@ -131,7 +131,7 @@ function makeTaskList(task) {
 
 function taskForm() {
     return (`
-        <form id="create-task">
+        <form>
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
             <label for="completed">Completed?:</label>
@@ -150,11 +150,9 @@ function taskForm() {
 };
 
 function addFormInputs() {
-    const newForm = document.getElementById('create-task');
+    const newForm = document.querySelector('form');
     const addBtn = document.createElement('button');
     addBtn.innerHTML = "Add an Instuction"
-    newForm.appendChild(addBtn)
-    debugger
     let counter = 0;
     let addInput = function() {
         counter++;
@@ -163,20 +161,20 @@ function addFormInputs() {
         input.id = 'instruction' + counter;
         input.placeholder = 'Instruction ' + counter;
         newForm.appendChild(input);
-        
     };
+    debugger
     addBtn.addEventListener('click', function() {
         addInput();
+        newForm.appendChild(addBtn)
     }.bind(this));
 };
 
 
 
 function showNewForm() {
-    addFormInputs()
     const taskFormHTML = taskForm()
     taskFormDiv.innerHTML += taskFormHTML
-    document.getElementById("new-form").addEventListener('submit', createTask)
+    document.querySelector("form").addEventListener('submit', createTask)
     
 };
 
