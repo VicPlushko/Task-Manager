@@ -16,7 +16,6 @@ class InstructionsController < ApplicationController
   # POST /instructions
   def create
     @instruction = Instruction.new(instruction_params)
-
     if @instruction.save
       render json: @instruction, status: :created, location: @instruction
     else

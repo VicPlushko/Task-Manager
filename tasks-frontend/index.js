@@ -74,6 +74,7 @@ function showTask() {
             bedtimeUl.innerHTML = ""
             showSingleTask(task)
         }
+    
     });
     tasks.addEventListener('click', () => {
         event.preventDefault()
@@ -83,14 +84,41 @@ function showTask() {
 
 function createTask() {
     event.preventDefault()
+    console.log("creating a task")
+    let instructions = document.querySelectorAll('.task-instruction')
+    // let newArr = []
+    // for (let i = 0; i < instructions.length; i++) {
+    //    newArr.push(instructions[i].value) 
+    // }
 
+    const objArr = []
+    for (let i = 0; i < instructions.length; i++) {
+        console.log(instructions[i].value)
+        const instruction = {
+            description: instructions[i].value,
+            completed: false
+        }
+        const configObj = {
+            method: 'POST',
+            body: JSON.stringify(instruction),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        fetch(BASE_URL + '/instructions', configObj)
+        .then(response => response.json())
+
+     }
+     console.log("finished ionstructionw")
     const task = {
         name: document.getElementById('task-name').value,
         completed: document.getElementById('completed').value,
         routine: document.getElementById('task-routine').value,
-        instructions: document.querySelectorAll('.task-instruction').value
+        instructions: objArr
     }
 
+    console.log(task)
     const configObj = {
         method: 'POST',
         body: JSON.stringify(task),
@@ -134,8 +162,8 @@ function taskForm() {
         <form>
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
-            <label for="completed">Completed?:</label>
-            <input type="checkbox" id="completed"><br>
+            <label for="completed">Completed:</label>
+            <input type="checkbox" id="completed" value="true"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
                <option disabled selected value> -- select a routine -- </option>
@@ -152,8 +180,9 @@ function taskForm() {
 function addFormInputs() {
     const newForm = document.querySelector('form');
     const addBtn = document.createElement('button');
-    newForm.appendChild(addBtn)
-    addBtn.innerHTML = "Add an Instuction"
+    taskFormDiv.appendChild(addBtn)
+    addBtn.innerHTML = "Add an Instruction"
+
     let counter = 0;
     let addInput = function() {
         counter++;
@@ -184,7 +213,7 @@ function showNewForm() {
 
 
 function showSingleTask(task) {
-
+    console.log(task)
     const div = document.createElement('div');
     div.className = "show-task"
     let taskH3 = document.createElement('h3')
@@ -222,7 +251,6 @@ function showSingleTask(task) {
             bedtimeUl.appendChild(div)
         }
     }
-
 }
 
 function clickOnTasks() {
