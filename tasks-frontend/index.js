@@ -138,24 +138,33 @@ function taskForm() {
             <input type="checkbox" id="completed" value="true"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
+               <option disabled selected value> -- select a routione -- </option>
                <option value="Morning">Morning</option>
                <option value="Homework">Homework</option>
                <option value="Chore">Chores</option>
                <option value="Bedtime">Bedtime</option>
             </select><br>
-            <label for="instruction">Instruction:</label>
-            <input type="text" id="instruction-1" placeholder="Add Instruction Here"><br><br>
             <input type="submit">
         </form>
     `)
+};
+
+function addFormInputs() {
+    const addBtn = document.createElement('button')
+    const form = document.getElementById('new-form')
+    let counter = 0
 }
+
+
 
 function showNewForm() {
     const taskFormHTML = taskForm()
     taskFormDiv.innerHTML += taskFormHTML
     document.getElementById("new-form").addEventListener('submit', createTask)
     
-}
+};
+
+
 
 
 
