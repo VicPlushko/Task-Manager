@@ -150,14 +150,26 @@ function taskForm() {
 };
 
 function addFormInputs() {
-    const addBtn = document.createElement('button')
-    const form = document.getElementById('new-form')
-    let counter = 0
-}
+    const addBtn = document.createElement('button');
+    const form = document.getElementById('new-form');
+    let counter = 0;
+    let addInput = function() {
+        counter++;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'instruction' + counter;
+        input.placeholder = 'Instruction ' + counter;
+        form.appendChild(input);
+    };
+    addBtn.addEventListener('click', function() {
+        addInput();
+    }.bind(this));
+};
 
 
 
 function showNewForm() {
+
     const taskFormHTML = taskForm()
     taskFormDiv.innerHTML += taskFormHTML
     document.getElementById("new-form").addEventListener('submit', createTask)
