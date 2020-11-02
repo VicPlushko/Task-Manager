@@ -152,6 +152,7 @@ function taskForm() {
 function addFormInputs() {
     const newForm = document.querySelector('form');
     const addBtn = document.createElement('button');
+    newForm.appendChild(addBtn)
     addBtn.innerHTML = "Add an Instuction"
     let counter = 0;
     let addInput = function() {
@@ -161,11 +162,11 @@ function addFormInputs() {
         input.id = 'instruction' + counter;
         input.placeholder = 'Instruction ' + counter;
         newForm.appendChild(input);
+
     };
     debugger
     addBtn.addEventListener('click', function() {
         addInput();
-        newForm.appendChild(addBtn)
     }.bind(this));
 };
 
@@ -174,6 +175,7 @@ function addFormInputs() {
 function showNewForm() {
     const taskFormHTML = taskForm()
     taskFormDiv.innerHTML += taskFormHTML
+    addFormInputs()
     document.querySelector("form").addEventListener('submit', createTask)
     
 };
