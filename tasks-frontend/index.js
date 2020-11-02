@@ -45,7 +45,7 @@ function getAllTasks() {
            } else if (task.routine === "Bedtime") {
                bedtimeUl.innerHTML += makeTaskList(task)
            } else {
-               console.log("in else", task.name)
+               console.log("in else", task.name, task.instructions)
            }
         
         });
@@ -88,7 +88,7 @@ function createTask() {
         name: document.getElementById('task-name').value,
         completed: document.getElementById('completed').value,
         routine: document.getElementById('task-routine').value,
-        // instructions: document.getElementById('instruction-1').value
+        instructions: document.querySelectorAll('.task-instruction').value
     }
 
     const configObj = {
@@ -159,12 +159,11 @@ function addFormInputs() {
         counter++;
         const input = document.createElement('input');
         input.type = 'text';
-        input.id = 'instruction' + counter;
+        input.className = 'task-instruction'
         input.placeholder = 'Instruction ' + counter;
         newForm.appendChild(input);
 
     };
-    debugger
     addBtn.addEventListener('click', function() {
         addInput();
     }.bind(this));
