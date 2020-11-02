@@ -131,14 +131,14 @@ function makeTaskList(task) {
 
 function taskForm() {
     return (`
-        <form id="new-form">
+        <form id="create-task">
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
             <label for="completed">Completed?:</label>
             <input type="checkbox" id="completed" value="true"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
-               <option disabled selected value> -- select a routione -- </option>
+               <option disabled selected value> -- select a routine -- </option>
                <option value="Morning">Morning</option>
                <option value="Homework">Homework</option>
                <option value="Chore">Chores</option>
@@ -150,8 +150,11 @@ function taskForm() {
 };
 
 function addFormInputs() {
+    const newForm = document.getElementById('create-task');
     const addBtn = document.createElement('button');
-    const form = document.getElementById('new-form');
+    addBtn.innerHTML = "Add an Instuction"
+    newForm.appendChild(addBtn)
+    debugger
     let counter = 0;
     let addInput = function() {
         counter++;
@@ -159,7 +162,8 @@ function addFormInputs() {
         input.type = 'text';
         input.id = 'instruction' + counter;
         input.placeholder = 'Instruction ' + counter;
-        form.appendChild(input);
+        newForm.appendChild(input);
+        
     };
     addBtn.addEventListener('click', function() {
         addInput();
@@ -169,7 +173,7 @@ function addFormInputs() {
 
 
 function showNewForm() {
-
+    addFormInputs()
     const taskFormHTML = taskForm()
     taskFormDiv.innerHTML += taskFormHTML
     document.getElementById("new-form").addEventListener('submit', createTask)
