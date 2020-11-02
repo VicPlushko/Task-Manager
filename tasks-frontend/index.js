@@ -135,7 +135,7 @@ function taskForm() {
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
             <label for="completed">Completed?:</label>
-            <input type="checkbox" id="completed" value="true"><br>
+            <input type="checkbox" id="completed"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
                <option disabled selected value> -- select a routine -- </option>
