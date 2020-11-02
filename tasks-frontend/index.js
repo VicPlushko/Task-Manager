@@ -130,26 +130,24 @@ function makeTaskList(task) {
 };
 
 function taskForm() {
-    const form = document.createElement('form')
-    
-    // return (`
-    //     <form id="new-form">
-    //         <label for="name">Task:</label>      
-    //         <input type="text" id="task-name" placeholder="Task Name">
-    //         <label for="completed">Completed?:</label>
-    //         <input type="checkbox" id="completed" value="true"><br>
-    //         <label for="routine">Routine:</label>
-    //         <select name="routine" id="task-routine">
-    //            <option value="Morning">Morning</option>
-    //            <option value="Homework">Homework</option>
-    //            <option value="Chore">Chores</option>
-    //            <option value="Bedtime">Bedtime</option>
-    //         </select><br>
-    //         <label for="instruction">Instruction:</label>
-    //         <input type="text" id="instruction-1" placeholder="Add Instruction Here"><br><br>
-    //         <input type="submit">
-    //     </form>
-    // `)
+    return (`
+        <form id="new-form">
+            <label for="name">Task:</label>      
+            <input type="text" id="task-name" placeholder="Task Name">
+            <label for="completed">Completed?:</label>
+            <input type="checkbox" id="completed" value="true"><br>
+            <label for="routine">Routine:</label>
+            <select name="routine" id="task-routine">
+               <option value="Morning">Morning</option>
+               <option value="Homework">Homework</option>
+               <option value="Chore">Chores</option>
+               <option value="Bedtime">Bedtime</option>
+            </select><br>
+            <label for="instruction">Instruction:</label>
+            <input type="text" id="instruction-1" placeholder="Add Instruction Here"><br><br>
+            <input type="submit">
+        </form>
+    `)
 }
 
 function showNewForm() {
