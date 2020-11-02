@@ -62,16 +62,16 @@ function showTask() {
     .then(response => response.json())
     .then(task => {
         if (task.routine === "Morning") {
-            mainDiv.innerHTML = ""
+            morningUl.innerHTML = ""
             showSingleTask(task)
         } else if (task.routine === "Homework") {
-            homework.innerHTML = ""
+            homeworkUl.innerHTML = ""
             showSingleTask(task)
         } else if (task.routine === "Chore") {
-            chores.innerHTML = ""
+            choresUl.innerHTML = ""
             showSingleTask(task)
         } else if (task.routine === "Bedtime") {
-            bedtime.innerHTML = ""
+            bedtimeUl.innerHTML = ""
             showSingleTask(task)
         }
     });
@@ -130,24 +130,26 @@ function makeTaskList(task) {
 };
 
 function taskForm() {
-    return (`
-        <form id="new-form">
-            <label for="name">Task:</label>      
-            <input type="text" id="task-name" placeholder="Task Name">
-            <label for="completed">Completed?:</label>
-            <input type="checkbox" id="completed" value="true"><br>
-            <label for="routine">Routine:</label>
-            <select name="routine" id="task-routine">
-               <option value="Morning">Morning</option>
-               <option value="Homework">Homework</option>
-               <option value="Chore">Chores</option>
-               <option value="Bedtime">Bedtime</option>
-            </select><br>
-            <label for="instruction">Instruction:</label>
-            <input type="text" id="instruction-1" placeholder="Add Instruction Here"><br><br>
-            <input type="submit">
-        </form>
-    `)
+    const form = document.createElement('form')
+    
+    // return (`
+    //     <form id="new-form">
+    //         <label for="name">Task:</label>      
+    //         <input type="text" id="task-name" placeholder="Task Name">
+    //         <label for="completed">Completed?:</label>
+    //         <input type="checkbox" id="completed" value="true"><br>
+    //         <label for="routine">Routine:</label>
+    //         <select name="routine" id="task-routine">
+    //            <option value="Morning">Morning</option>
+    //            <option value="Homework">Homework</option>
+    //            <option value="Chore">Chores</option>
+    //            <option value="Bedtime">Bedtime</option>
+    //         </select><br>
+    //         <label for="instruction">Instruction:</label>
+    //         <input type="text" id="instruction-1" placeholder="Add Instruction Here"><br><br>
+    //         <input type="submit">
+    //     </form>
+    // `)
 }
 
 function showNewForm() {
@@ -189,13 +191,13 @@ function showSingleTask(task) {
         div.appendChild(taskH3)
         div.appendChild(ul)
         if (task.routine === "Morning") {
-            mainDiv.appendChild(div)
+            morningUl.appendChild(div)
         } else if (task.routine === "Homework") {
-            homework.appendChild(div)
+            homeworkUl.appendChild(div)
         } else if (task.routine === "Chore") {
-            chores.appendChild(div)
+            choresUl.appendChild(div)
         } else if (task.routine === "Bedtime") {
-            bedtime.appendChild(div)
+            bedtimeUl.appendChild(div)
         }
     }
 
