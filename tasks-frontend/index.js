@@ -84,34 +84,12 @@ function showTask() {
 
 function createTask() {
     event.preventDefault()
-    console.log("creating a task")
     let instructions = document.querySelectorAll('.task-instruction')
     let newArr = []
     for (let i = 0; i < instructions.length; i++) {
        newArr.push(instructions[i].value) 
     }
-    // debugger
-
-    // const objArr = []
-    // for (let i = 0; i < instructions.length; i++) {
-    //     console.log(instructions[i].value)
-    //     const instruction = {
-    //         description: instructions[i].value,
-    //         completed: false,
-    //     }
-    //     const configObj = {
-    //         method: 'POST',
-    //         body: JSON.stringify(instruction),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Accept': 'application/json'
-    //         }
-    //     }
-    //     fetch(BASE_URL + '/instructions', configObj)
-    //     .then(response => response.json())
-
-    //  }
-     console.log("finished ionstructionw")
+     
     const task = {
         name: document.getElementById('task-name').value,
         completed: document.getElementById('completed').value,
@@ -119,7 +97,6 @@ function createTask() {
         descriptions: newArr
     }
 
-    console.log(task)
     const configObj = {
         method: 'POST',
         body: JSON.stringify(task),
