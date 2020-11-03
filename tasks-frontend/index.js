@@ -209,10 +209,7 @@ function showSingleTask(task) {
     for (let i = 0; i < instructions.length; i++) {
         const li = document.createElement('li')
         const checkbox = document.createElement('input')
-        // const deleteBtn = document.createElement('button')
-        // deleteBtn.id = 'delete'
-        // deleteBtn.setAttribute('data-id', `${task.id}`)
-        // const editBtn = documennt.createElement('button')
+        const deleteBtn = document.createElement('button')
 
         checkbox.type = "checkbox"
         checkbox.className = "checkbox"
@@ -237,6 +234,10 @@ function showSingleTask(task) {
     }
 }
 
+function deleteTask(task) {
+    debugger
+}
+
 function clickOnTasks() {
     const liLinks = document.querySelectorAll("li a")
 
@@ -245,6 +246,8 @@ function clickOnTasks() {
     })
     
     newTaskForm.addEventListener('click', showNewForm)
+    document.querySelectorAll('delete').forEach(task => addEventListener('click', deleteTask))
+    // document.querySelectorAll('update-task').forEach(task => addEventListener('click', editTask))
 }
 
 // function clickOnCheckbox() {
