@@ -116,7 +116,7 @@ function createTask() {
         name: document.getElementById('task-name').value,
         completed: document.getElementById('completed').value,
         routine: document.getElementById('task-routine').value,
-        descriptions: newArr
+        instructions: newArr
     }
 
     console.log(task)

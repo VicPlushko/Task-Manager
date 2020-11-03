@@ -17,9 +17,10 @@ class TasksController < ApplicationController
   def create
     # binding.pry
     @task = Task.new(task_params)
-    @instruction = Instruction.create(description: task_params[:descriptions], completed: false)
-    task_params.descriptions.each do |desc|
-    @task.instructions << desc
+
+    @task.instructions.each do |description|
+      @instruction = Instruction.create(task_id: task_params[:instructions_attributes][:task_id], description: description, completed: false)
+    @task.instructions << @instruction
     end
     # binding.pry
     if @task.save
@@ -51,6 +52,9 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:name, :routine, :completed, :descriptions)
+      params.require(:task).permit(:id, :name, :routine, :completed, : instructions_attributes: [
+        :task_id,
+        :description
+      ])
     end
 end
