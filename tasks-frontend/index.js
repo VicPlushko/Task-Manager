@@ -125,6 +125,20 @@ function createTask() {
     })
 }
 
+function deleteTask() {
+    event.preventDefault()
+    const configObj = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+
+    fetch(BASE_URL + `/tasks/${event.target.dataset.id}`, configObj)
+    .then(event.target.parentElement.remove())
+}
+
 
 
 
@@ -234,9 +248,7 @@ function showSingleTask(task) {
     }
 }
 
-function deleteTask(task) {
-    debugger
-}
+
 
 function clickOnTasks() {
     const liLinks = document.querySelectorAll("li a")
@@ -246,8 +258,8 @@ function clickOnTasks() {
     })
     
     newTaskForm.addEventListener('click', showNewForm)
-    document.querySelectorAll('delete').forEach(task => addEventListener('click', deleteTask))
-    // document.querySelectorAll('update-task').forEach(task => addEventListener('click', editTask))
+    document.querySelectorAll('#delete').forEach(task => addEventListener('click', deleteTask))
+    // document.querySelectorAll('#update-task').forEach(task => addEventListener('click', editTask))
 }
 
 // function clickOnCheckbox() {
