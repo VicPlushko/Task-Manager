@@ -17,7 +17,11 @@ class TasksController < ApplicationController
   def create
     # binding.pry
     @task = Task.new(task_params)
-
+    @instruction = Instruction.create(description: task_params[:descriptions], completed: false)
+    task_params.descriptions.each do |desc|
+    @task.instructions << desc
+    end
+    # binding.pry
     if @task.save
       render json: @task, status: :created, location: @task
     else
@@ -47,6 +51,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:name, :routine, :completed)
+      params.require(:task).permit(:name, :routine, :completed, :descriptions)
     end
 end
