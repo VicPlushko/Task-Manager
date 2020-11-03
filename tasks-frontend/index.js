@@ -135,6 +135,8 @@ function makeTaskList(task) {
     return (
         `<li>
             <a href="" data-id="${task.id}">${task.name}</a> - ${task.completed ? "Completed" : "Not Completed"}
+            <button id="delete" data_id="${task.id}">Delete</button>
+            <button id="update-task" data_id="${task.id}">Update</button>
         </li>`
     )
 };
@@ -144,7 +146,7 @@ function taskForm() {
         <form>
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
-            <label for="completed">Completed:</label>
+            <label for="completed">Click Box If Task Is Not Complete:</label>
             <input type="checkbox" id="completed" value="false"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
@@ -195,7 +197,7 @@ function showNewForm() {
 
 
 function showSingleTask(task) {
-    console.log(task)
+    
     const div = document.createElement('div');
     div.className = "show-task"
     let taskH3 = document.createElement('h3')
