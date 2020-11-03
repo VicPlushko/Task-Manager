@@ -90,7 +90,7 @@ function createTask() {
     for (let i = 0; i < instructions.length; i++) {
        newArr.push(instructions[i].value) 
     }
-    debugger
+    // debugger
 
     // const objArr = []
     // for (let i = 0; i < instructions.length; i++) {
@@ -116,7 +116,7 @@ function createTask() {
         name: document.getElementById('task-name').value,
         completed: document.getElementById('completed').value,
         routine: document.getElementById('task-routine').value,
-        instructions: newArr
+        descriptions: newArr
     }
 
     console.log(task)

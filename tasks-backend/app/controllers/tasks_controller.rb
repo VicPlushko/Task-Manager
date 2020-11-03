@@ -15,11 +15,11 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    # binding.pry
-    @task = Task.new(task_params)
-
-    @task.instructions.each do |description|
-      @instruction = Instruction.create(task_id: task_params[:instructions_attributes][:task_id], description: description, completed: false)
+    
+    @task = Task.create(task_params)
+    #  binding.pry
+    params[:descriptions].each do |description|
+      @instruction = Instruction.create(description: description, completed: false)
     @task.instructions << @instruction
     end
     # binding.pry
@@ -52,9 +52,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:id, :name, :routine, :completed, : instructions_attributes: [
-        :task_id,
-        :description
-      ])
+      params.require(:task).permit(:id, :name, :routine, :completed)
     end
 end
