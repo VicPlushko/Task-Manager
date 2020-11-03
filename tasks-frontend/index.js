@@ -110,12 +110,16 @@ function createTask() {
     .then(response => response.json())
     .then(task => {
         if (task.routine === "Morning") {
+            taskFormDiv.innerHTML = ''
             morningUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Homework") {
+            taskFormDiv.innerHTML = ''
                homeworkUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Chore") {
+            taskFormDiv.innerHTML = ''
                choresUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Bedtime") {
+            taskFormDiv.innerHTML = ''
                bedtimeUl.innerHTML += makeTaskList(task)
            }
     })
@@ -141,7 +145,7 @@ function taskForm() {
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
             <label for="completed">Completed:</label>
-            <input type="checkbox" id="completed" value="true"><br>
+            <input type="checkbox" id="completed" value="false"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
                <option disabled selected value> -- select a routine -- </option>
