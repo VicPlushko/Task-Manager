@@ -125,7 +125,6 @@ function createTask() {
 
 function deleteTask() {
     event.preventDefault()
-    // debugger
     const configObj = {
         method: 'DELETE',
         headers: {
@@ -137,10 +136,6 @@ function deleteTask() {
     fetch(BASE_URL + `/tasks/${event.target.dataset.id}`, configObj)
     .then(event.target.parentElement.remove())
 }
-
-
-
-
 
 //  ********** helpers for generating HTML and adding event listeners *******************************
 
@@ -195,8 +190,6 @@ function addFormInputs() {
     }.bind(this));
 };
 
-
-
 function showNewForm() {
     const taskFormHTML = taskForm()
     taskFormDiv.innerHTML += taskFormHTML
@@ -204,10 +197,6 @@ function showNewForm() {
     document.querySelector("form").addEventListener('submit', createTask)
     
 };
-
-
-
-
 
 function showSingleTask(task) {
     
@@ -245,6 +234,61 @@ function showSingleTask(task) {
     }
 }
 
+function editTask() {
+    event.preventDefault()
+    const taskId = event.target.dataset.id
+    fetch(BASE_URL + `/tasks/${taskId}`)
+    .then(response => response.json())
+    .then(task => {
+        const editForm = editFormInputs(task)
+        taskFormDiv.innerHTML = editForm
+    })
+}
+
+function editFormInputs(task) {
+    const string1 = `
+    <form data-id=${task.id}>
+      <label for="name">Task:</label>      
+      <input type="text" id="task-name" value="${task.name}">
+      <label for="completed">Click Box If Task Is Not Complete:</label>
+      <input type="checkbox" id="completed" ${task.completed ? "checked" : ""}><br>`
+
+    let string2 = ``
+    let instructions = task.instructions
+    for(let i = 0; i < instructions.length; i++) {
+       string2 += `<label for="instruction">Instruction</label>
+                   <input type="text" value="${instructions[i].description}"><br>`
+    }
+    
+    const string3 = `
+    <label for="routine">Routine:</label>
+    <select name="routine" id="edit-task-routine">
+       <option value="Morning">Morning</option>
+       <option value="Homework">Homework</option>
+       <option selected value="Chore">Chores</option>
+       <option value="Bedtime">Bedtime</option>
+    </select><br>
+    <input type="submit">
+    </form>`
+
+    let taskRoutineDropdown = document.querySelector('#edit-task-routine')
+    debugger
+    let opt = taskRoutineDropdown.options;
+    for (let i = 0; i < opt.length; i++) {
+        if (opt[i].value === 'Morning') {
+            opt[i].selected = true;
+        } else if (opt[i].value === 'Homework') {
+            opt[i].selected = true;
+        } else if (opt[i].value === 'Chore') {
+            opt[i].selected = true;
+        } else if (opt[i].value === 'Bedtime') {
+            opt[i].selected = true;
+        }
+    }
+
+    return string1 + string2 + string3
+}
+
 
 
 function clickOnTasks() {
@@ -256,7 +300,7 @@ function clickOnTasks() {
     
     newTaskForm.addEventListener('click', showNewForm)
     document.querySelectorAll('#delete').forEach(task => task.addEventListener('click', deleteTask))
-    // document.querySelectorAll('#update-task').forEach(task => task.addEventListener('click', editTask))
+    document.querySelectorAll('#update-task').forEach(task => task.addEventListener('click', editTask))
 }
 
 // function clickOnCheckbox() {
