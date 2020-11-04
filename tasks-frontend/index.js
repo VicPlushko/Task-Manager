@@ -17,6 +17,7 @@ const bedtimeUl = bedtime.querySelector('ul')
 document.addEventListener("DOMContentLoaded", () =>{
     getAllTasks()
     tasks.addEventListener('click', () => {
+        // debugger
         event.preventDefault()
         getAllTasks()
 
@@ -44,10 +45,7 @@ function getAllTasks() {
                choresUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Bedtime") {
                bedtimeUl.innerHTML += makeTaskList(task)
-           } else {
-               console.log("in else", task.name, task.instructions)
-           }
-        
+           } 
         });
         clickOnTasks()
     });
@@ -127,6 +125,7 @@ function createTask() {
 
 function deleteTask() {
     event.preventDefault()
+    // debugger
     const configObj = {
         method: 'DELETE',
         headers: {
@@ -149,8 +148,8 @@ function makeTaskList(task) {
     return (
         `<li>
             <a href="" data-id="${task.id}">${task.name}</a> - ${task.completed ? "Completed" : "Not Completed"}
-            <button id="delete" data_id="${task.id}">Delete</button>
-            <button id="update-task" data_id="${task.id}">Update</button>
+            <button id="delete" data-id="${task.id}">Delete</button>
+            <button id="update-task" data-id="${task.id}">Update</button>
         </li>`
     )
 };
@@ -223,8 +222,6 @@ function showSingleTask(task) {
     for (let i = 0; i < instructions.length; i++) {
         const li = document.createElement('li')
         const checkbox = document.createElement('input')
-        const deleteBtn = document.createElement('button')
-
         checkbox.type = "checkbox"
         checkbox.className = "checkbox"
         checkbox.checked = false
@@ -258,8 +255,8 @@ function clickOnTasks() {
     })
     
     newTaskForm.addEventListener('click', showNewForm)
-    document.querySelectorAll('#delete').forEach(task => addEventListener('click', deleteTask))
-    // document.querySelectorAll('#update-task').forEach(task => addEventListener('click', editTask))
+    document.querySelectorAll('#delete').forEach(task => task.addEventListener('click', deleteTask))
+    // document.querySelectorAll('#update-task').forEach(task => task.addEventListener('click', editTask))
 }
 
 // function clickOnCheckbox() {
