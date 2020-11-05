@@ -32,7 +32,10 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1
   def update
-    # binding.pry
+    params[:descriptions].each do |instruction|
+      @instruction = Instruction.find(instruction[:id])
+      @instruction.update(description: instruction[:description])
+    end
     if @task.update(task_params)
       render json: @task
     else

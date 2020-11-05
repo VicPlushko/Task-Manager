@@ -153,7 +153,11 @@ function updateTask() {
     const taskId = event.target.dataset.id
     let editInstructions = document.querySelectorAll('.edit-task-instructions')
     let instructionArray = []
-    editInstructions.forEach(instruction => instructionArray.push(instruction))
+    editInstructions.forEach(instruction => instructionArray.push({
+        id: instruction.id,
+        description: instruction.value
+    }))
+    // debugger
 
     const task = {
         name: event.target.querySelector('#task-name').value,
@@ -311,7 +315,7 @@ function editFormInputs(task) {
     let instructions = task.instructions
     for(let i = 0; i < instructions.length; i++) {
        string2 += `<label for="instruction">Instruction</label>
-                   <input type="text" class="edit-task-instructions" value="${instructions[i].description}"><br>`
+                   <input type="text" id="${instructions[i].id}" class="edit-task-instructions" value="${instructions[i].description}"><br>`
     }
     
     const string3 = `
