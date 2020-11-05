@@ -17,7 +17,6 @@ const bedtimeUl = bedtime.querySelector('ul')
 document.addEventListener("DOMContentLoaded", () =>{
     getAllTasks()
     tasks.addEventListener('click', () => {
-        // debugger
         event.preventDefault()
         getAllTasks()
 
@@ -137,6 +136,70 @@ function deleteTask() {
     .then(event.target.parentElement.remove())
 }
 
+function editTask() {
+    event.preventDefault()
+    const taskId = event.target.dataset.id
+    fetch(BASE_URL + `/tasks/${taskId}`)
+    .then(response => response.json())
+    .then(task => {
+        const editForm = editFormInputs(task)
+        taskFormDiv.innerHTML = editForm
+        document.querySelector("form").addEventListener('submit', updateTask)
+    })
+}
+
+function updateTask() {
+    event.preventDefault()
+    const taskId = event.target.dataset.id
+    let editInstructions = document.querySelectorAll('.edit-task-instructions')
+    let instructionArray = []
+    editInstructions.forEach(instruction => instructionArray.push(instruction))
+
+    const task = {
+        name: event.target.querySelector('#task-name').value,
+        completed: event.target.querySelector('#completed').checked,
+        routine: event.target.querySelector('#edit-task-routine').value,
+        descriptions: instructionArray
+    }
+
+    const configObj = {
+        method: 'PATCH',
+        body: JSON.stringify(task),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+
+    fetch(BASE_URL + `/tasks/${taskId}`, configObj)
+    .then(response => response.json())
+    .then(task => {
+        const updatedTask = 
+        `<li>
+        <a href="" data-id="${task.id}">${task.name}</a> - ${task.completed ? "Completed" : "Not Completed"}
+        <button id="delete" data-id="${task.id}">Delete</button>
+        <button id="update-task" data-id="${task.id}">Update</button>
+        </li>`
+
+        if (task.routine === "Morning") {
+            taskFormDiv.innerHTML = ''
+            morningUl.innerHTML = updatedTask
+           } else if (task.routine === "Homework") {
+            taskFormDiv.innerHTML = ''
+               homeworkUl.innerHTML = updatedTask
+           } else if (task.routine === "Chore") {
+            taskFormDiv.innerHTML = ''
+               choresUl.innerHTML = updatedTask
+           } else if (task.routine === "Bedtime") {
+            taskFormDiv.innerHTML = ''
+               bedtimeUl.innerHTML = updatedTask
+           }
+        
+        clickOnTasks()
+       
+    })
+}
+
 //  ********** helpers for generating HTML and adding event listeners *******************************
 
 function makeTaskList(task) {
@@ -234,16 +297,7 @@ function showSingleTask(task) {
     }
 }
 
-function editTask() {
-    event.preventDefault()
-    const taskId = event.target.dataset.id
-    fetch(BASE_URL + `/tasks/${taskId}`)
-    .then(response => response.json())
-    .then(task => {
-        const editForm = editFormInputs(task)
-        taskFormDiv.innerHTML = editForm
-    })
-}
+
 
 function editFormInputs(task) {
     const string1 = `
@@ -257,34 +311,22 @@ function editFormInputs(task) {
     let instructions = task.instructions
     for(let i = 0; i < instructions.length; i++) {
        string2 += `<label for="instruction">Instruction</label>
-                   <input type="text" value="${instructions[i].description}"><br>`
+                   <input type="text" class="edit-task-instructions" value="${instructions[i].description}"><br>`
     }
     
     const string3 = `
     <label for="routine">Routine:</label>
     <select name="routine" id="edit-task-routine">
+       <option disable selected value>-- Select A Routine --</option>
        <option value="Morning">Morning</option>
        <option value="Homework">Homework</option>
-       <option selected value="Chore">Chores</option>
+       <option value="Chore">Chores</option>
        <option value="Bedtime">Bedtime</option>
     </select><br>
     <input type="submit">
     </form>`
 
-    let taskRoutineDropdown = document.querySelector('#edit-task-routine')
-    debugger
-    let opt = taskRoutineDropdown.options;
-    for (let i = 0; i < opt.length; i++) {
-        if (opt[i].value === 'Morning') {
-            opt[i].selected = true;
-        } else if (opt[i].value === 'Homework') {
-            opt[i].selected = true;
-        } else if (opt[i].value === 'Chore') {
-            opt[i].selected = true;
-        } else if (opt[i].value === 'Bedtime') {
-            opt[i].selected = true;
-        }
-    }
+    
 
     return string1 + string2 + string3
 }
