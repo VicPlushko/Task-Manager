@@ -1,17 +1,13 @@
 //  ***************************** global constants **************************************************
 const BASE_URL = 'http://localhost:3000'
-const mainDiv = document.getElementById('main-div')
-const morningRoutine = document.getElementById('morning-routine')
-const homework = document.getElementById('homework')
-const chores = document.getElementById('chores')
-const bedtime = document.getElementById('bedtime')
 const tasks = document.getElementById('tasks')
 const newTaskForm = document.getElementById('new-task-form')
 const taskFormDiv = document.getElementById('task-form')
-const morningUl = morningRoutine.querySelector('ul')
-const homeworkUl = homework.querySelector('ul')
-const choresUl = chores.querySelector('ul')
-const bedtimeUl = bedtime.querySelector('ul')
+const morningUl = document.querySelector('div#morning-routine ul')
+const homeworkUl = document.querySelector('div#homework ul')
+const choresUl = document.querySelector('div#chores ul')
+const bedtimeUl = document.querySelector('div#bedtime ul')
+const miscUl = document.querySelector('div#misc ul')
 
 //  ***************************** start up routine **************************************************
 document.addEventListener("DOMContentLoaded", () =>{
@@ -44,7 +40,9 @@ function getAllTasks() {
                choresUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Bedtime") {
                bedtimeUl.innerHTML += makeTaskList(task)
-           } 
+           } else if (task.routine === "") {
+               miscUl.innerHTML += makeTaskList(task)
+           }
         });
         clickOnTasks()
     });
@@ -69,6 +67,9 @@ function showTask() {
             showSingleTask(task)
         } else if (task.routine === "Bedtime") {
             bedtimeUl.innerHTML = ""
+            showSingleTask(task)
+        } else if (task.routine === "") {
+            miscUl.innerHTML = ""
             showSingleTask(task)
         }
     
@@ -110,14 +111,17 @@ function createTask() {
             taskFormDiv.innerHTML = ''
             morningUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Homework") {
-            taskFormDiv.innerHTML = ''
+               taskFormDiv.innerHTML = ''
                homeworkUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Chore") {
-            taskFormDiv.innerHTML = ''
+               taskFormDiv.innerHTML = ''
                choresUl.innerHTML += makeTaskList(task)
            } else if (task.routine === "Bedtime") {
-            taskFormDiv.innerHTML = ''
+               taskFormDiv.innerHTML = ''
                bedtimeUl.innerHTML += makeTaskList(task)
+           } else if (task.routine === "") {
+               taskFormDiv.innerHTML = ""
+               miscUl.innerHTML += makeTaskList(task) 
            }
     })
 }
@@ -189,14 +193,17 @@ function updateTask() {
             taskFormDiv.innerHTML = ''
             morningUl.innerHTML = updatedTask
            } else if (task.routine === "Homework") {
-            taskFormDiv.innerHTML = ''
+               taskFormDiv.innerHTML = ''
                homeworkUl.innerHTML = updatedTask
            } else if (task.routine === "Chore") {
-            taskFormDiv.innerHTML = ''
+               taskFormDiv.innerHTML = ''
                choresUl.innerHTML = updatedTask
            } else if (task.routine === "Bedtime") {
-            taskFormDiv.innerHTML = ''
+               taskFormDiv.innerHTML = ''
                bedtimeUl.innerHTML = updatedTask
+           } else if (task.routine === "") {
+               taskFormDiv.innerHTML = ''
+               miscUl.innerHTML = updatedTask
            }
         
         clickOnTasks()
@@ -297,6 +304,8 @@ function showSingleTask(task) {
             choresUl.appendChild(div)
         } else if (task.routine === "Bedtime") {
             bedtimeUl.appendChild(div)
+        } else if (task.routine === "") {
+            miscUl.appendChild(div)
         }
     }
 }
