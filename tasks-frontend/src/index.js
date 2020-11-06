@@ -60,21 +60,24 @@ function showTask() {
     fetch(BASE_URL + '/tasks/' + taskId)
     .then(response => response.json())
     .then(task => {
+
+        const taskInstance = new Task(task)
+
         if (task.routine === "Morning") {
             morningUl.innerHTML = ""
-            showSingleTask(task)
+            taskInstance.renderSingleTask()
         } else if (task.routine === "Homework") {
             homeworkUl.innerHTML = ""
-            showSingleTask(task)
+            taskInstance.renderSingleTask()
         } else if (task.routine === "Chore") {
             choresUl.innerHTML = ""
-            showSingleTask(task)
+            taskInstance.renderSingleTask()
         } else if (task.routine === "Bedtime") {
             bedtimeUl.innerHTML = ""
-            showSingleTask(task)
+            taskInstance.renderSingleTask()
         } else if (task.routine === "") {
             miscUl.innerHTML = ""
-            showSingleTask(task)
+            taskInstance.renderSingleTask()
         }
     
     });
@@ -192,35 +195,25 @@ function updateTask() {
     fetch(BASE_URL + `/tasks/${taskId}`, configObj)
     .then(response => response.json())
     .then(task => {
-        // const updatedTask = 
-        // `<li>
-        // <a href="" data-id="${task.id}">${task.name}</a> - ${task.completed ? "Completed" : "Not Completed"}
-        // <button id="delete" data-id="${task.id}">Delete</button>
-        // <button id="update-task" data-id="${task.id}">Update</button>
-        // </li>`
-
+        
         const taskInstance = new Task(task)
 
         if (task.routine === "Morning") {
             taskFormDiv.innerHTML = ''
-            morningUl.innerHTML += taskInstance.renderUpdatedTask()
+            morningUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Homework") {
                taskFormDiv.innerHTML = ''
-               homeworkUl.innerHTML += taskInstance.renderUpdatedTask()
+               homeworkUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Chore") {
                taskFormDiv.innerHTML = ''
-               choresUl.innerHTML += taskInstance.renderUpdatedTask()
+               choresUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Bedtime") {
                taskFormDiv.innerHTML = ''
-               bedtimeUl.innerHTML += taskInstance.renderUpdatedTask()
+               bedtimeUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "") {
                taskFormDiv.innerHTML = ''
-               miscUl.innerHTML += taskInstance.renderUpdatedTask()
-           } else if (task.routine === "") {
-               taskFormDiv.innerHTML = ""
-               miscUl.innerHTML += taskInstance.renderUpdatedTask() 
-        }
-        
+               miscUl.innerHTML = taskInstance.renderTask()
+           }
         clickOnTasks()
     })
 }
@@ -276,44 +269,6 @@ function showNewForm() {
     
 };
 
-function showSingleTask(task) {
-    
-    const div = document.createElement('div');
-    div.className = "show-task"
-    let taskH3 = document.createElement('h3')
-    taskH3.innerHTML = `${task.name}`
-    let ul = document.createElement('ul')
-    
-    let instructions = task.instructions
-    
-    for (let i = 0; i < instructions.length; i++) {
-        const li = document.createElement('li')
-        const checkbox = document.createElement('input')
-        checkbox.type = "checkbox"
-        checkbox.className = "checkbox"
-        checkbox.checked = false
-        li.appendChild(checkbox)
-
-        const text = document.createTextNode(`${instructions[i].description}`)
-        li.appendChild(text)
-        
-        ul.appendChild(li)
-        div.appendChild(taskH3)
-        div.appendChild(ul)
-        if (task.routine === "Morning") {
-            morningUl.appendChild(div)
-        } else if (task.routine === "Homework") {
-            homeworkUl.appendChild(div)
-        } else if (task.routine === "Chore") {
-            choresUl.appendChild(div)
-        } else if (task.routine === "Bedtime") {
-            bedtimeUl.appendChild(div)
-        } else if (task.routine === "") {
-            miscUl.appendChild(div)
-        }
-    }
-}
-
 function clickOnTasks() {
     const liLinks = document.querySelectorAll("li a")
 
@@ -345,63 +300,3 @@ function clickOnTasks() {
 // }
 
 
-/////////////////////////////////////// CLASSES ////////////////////////////////////////////////////
-
-class Task {
-    constructor(task) { //object from json
-        this.id = task.id
-        this.name = task.name
-        this.routine = task.routine
-        this.completed = task.completed
-        this.instructions = task.instructions
-    };
-
-    renderTask() {
-        console.log('this is', this)
-        return (`
-            <li>
-              <a href="" data-id="${this.id}">${this.name}</a> - ${this.completed ? "Completed" : "Not Completed"}
-              <button id="delete" data-id="${this.id}">Delete</button>
-              <button id="update-task" data-id="${this.id}">Update</button>
-            </li>`
-        )
-    }
-
-    renderEditForm() {
-        const editForm1 = `
-    <form data-id=${this.id}>
-      <label for="name">Task:</label>      
-      <input type="text" id="task-name" value="${this.name}">
-      <label for="completed">Click Box If Task Is Not Complete:</label>
-      <input type="checkbox" id="completed" ${this.completed ? "checked" : ""}><br>`
-
-    let editForm2 = ``
-    let instructions = this.instructions
-    for(let i = 0; i < instructions.length; i++) {
-       editForm2 += `<label for="instruction">Instruction</label>
-                   <input type="text" id="${instructions[i].id}" class="edit-task-instructions" value="${instructions[i].description}"><br>`
-    }
-    
-    const editForm3 = `
-    <label for="routine">Routine:</label>
-    <select name="routine" id="edit-task-routine">
-       <option disable selected value>-- Select A Routine --</option>
-       <option value="Morning">Morning</option>
-       <option value="Homework">Homework</option>
-       <option value="Chore">Chores</option>
-       <option value="Bedtime">Bedtime</option>
-    </select><br>
-    <input type="submit">
-    </form>`
-
-    return editForm1 + editForm2 + editForm3
-    }
-
-    renderUpdatedTask() {
-        `<li>
-        <a href="" data-id="${this.id}">${this.name}</a> - ${this.completed ? "Completed" : "Not Completed"}
-        <button id="delete" data-id="${this.id}">Delete</button>
-        <button id="update-task" data-id="${this.id}">Update</button>
-        </li>`
-    }
-}
