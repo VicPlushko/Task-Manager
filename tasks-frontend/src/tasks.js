@@ -12,8 +12,8 @@ class Task {
         return (`
             <li>
               <a href="" data-id="${this.id}">${this.name}</a> - ${this.completed ? "Completed" : "Not Completed"}
-              <button id="delete" data-id="${this.id}">Delete</button>
               <button id="update-task" data-id="${this.id}">Update</button>
+              <button id="delete" data-id="${this.id}">Delete</button>
             </li>`
         )
     }

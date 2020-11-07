@@ -1,7 +1,36 @@
 body {
     display: block;
     margin: 8px;
-    background-color: steelblue;
+    background-color: lightgrey;
+}
+
+.header {
+    width: 100%;
+    height: 80px;
+    display: block;
+    background-color: #708090;
+}
+
+.inner-header {
+    width: 1000px;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+    background-color: #1E90FF
+}
+
+.logo-container {
+    height: 100%;
+    display: table;
+    float: left;
+}
+
+.logo-container h1 {
+   height: 100%;
+   display: table-cell;
+   vertical-align: middle;
+   font-family: 'Londrina Sketch';
+   font-size: 64px;
 }
 
 hr {
@@ -18,12 +47,26 @@ hr {
 
 button#delete {
     background: red;
-    border: none;
+    box-shadow: 5px black;
+    border: outset;
     color: white;
-    padding: 8px 20px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    
+    margin-left: 10px;
+}
+
+button#update-task {
+    background: green;
+    box-shadow: 5px black;
+    border: outset;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
 }
