@@ -97,7 +97,7 @@ function createTask() {
      
     const task = {
         name: document.getElementById('task-name').value,
-        completed: document.getElementById('completed').value,
+        completed: document.getElementById('completed').checked,
         routine: document.getElementById('task-routine').value,
         descriptions: newArr
     }
@@ -231,7 +231,7 @@ function taskForm() {
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
             <label>Click Box If Task Is Complete:</label>
-            <input type="checkbox" id="completed" value="false"><br>
+            <input type="checkbox" id="completed"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
                <option disabled selected value> -- select a routine -- </option>
@@ -269,7 +269,7 @@ function addFormInputs() {
 
 function showNewForm() {
     const taskFormHTML = taskForm()
-    taskFormDiv.innerHTML += taskFormHTML
+    taskFormDiv.innerHTML = taskFormHTML
     addFormInputs()
     document.querySelector("form").addEventListener('submit', createTask)
     
