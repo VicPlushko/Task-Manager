@@ -8,7 +8,6 @@ class Task {
     };
 
     renderTask() {
-        console.log('this is', this)
         return (`
             <li>
               <a href="" data-id="${this.id}">${this.name}</a> - ${this.completed ? "Completed" : "Not Completed"}
@@ -18,12 +17,13 @@ class Task {
         )
     }
 
+
     renderEditForm() {
         const editForm1 = `
     <form data-id=${this.id}>
       <label for="name">Task:</label>      
       <input type="text" id="task-name" value="${this.name}">
-      <label for="completed">Click Box If Task Is Not Complete:</label>
+      <label for="completed">Click Box If Task Is Complete:</label>
       <input type="checkbox" id="completed" ${this.completed ? "checked" : ""}><br>`
 
     let editForm2 = ``

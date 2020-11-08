@@ -27,11 +27,11 @@ function getAllTasks() {
     fetch(BASE_URL + '/tasks')
     .then(response => response.json())
     .then(allTasks => {
-        morningUl.innerHTML = ''
-        homeworkUl.innerHTML = ''
-        choresUl.innerHTML = ''
-        bedtimeUl.innerHTML = ''
-        miscUl.innerHTML = ''
+        clearMorningUl()
+        clearHomeworkUl()
+        clearChoresUl()
+        clearBedtimeUl()
+        clearMiscUl()
         allTasks.forEach(task => {
             
             const taskInstance = new Task(task)
@@ -64,19 +64,19 @@ function showTask() {
         const taskInstance = new Task(task)
 
         if (task.routine === "Morning") {
-            morningUl.innerHTML = ""
+            clearMorningUl()
             taskInstance.renderSingleTask()
         } else if (task.routine === "Homework") {
-            homeworkUl.innerHTML = ""
+            clearHomeworkUl()
             taskInstance.renderSingleTask()
         } else if (task.routine === "Chore") {
-            choresUl.innerHTML = ""
+            clearChoresUl()
             taskInstance.renderSingleTask()
         } else if (task.routine === "Bedtime") {
-            bedtimeUl.innerHTML = ""
+            clearBedtimeUl()
             taskInstance.renderSingleTask()
         } else if (task.routine === "") {
-            miscUl.innerHTML = ""
+            clearMiscUl()
             taskInstance.renderSingleTask()
         }
     
@@ -118,21 +118,27 @@ function createTask() {
         const taskInstance = new Task(task)
 
         if (task.routine === "Morning") {
-            taskFormDiv.innerHTML = ''
+            clearFormDiv()
+            clearMorningUl()
             morningUl.innerHTML += taskInstance.renderTask()
            } else if (task.routine === "Homework") {
-               taskFormDiv.innerHTML = ''
+               clearFormDiv()
+               clearHomeworkUl()
                homeworkUl.innerHTML += taskInstance.renderTask()
            } else if (task.routine === "Chore") {
-               taskFormDiv.innerHTML = ''
+               clearFormDiv()
+               clearChoresUl()
                choresUl.innerHTML += taskInstance.renderTask()
            } else if (task.routine === "Bedtime") {
-               taskFormDiv.innerHTML = ''
+               clearFormDiv()
+               clearBedtimeUl()
                bedtimeUl.innerHTML += taskInstance.renderTask()
            } else if (task.routine === "") {
-               taskFormDiv.innerHTML = ""
+               clearFormDiv()
+               clearMiscUl()
                miscUl.innerHTML += taskInstance.renderTask() 
            }
+           clickOnTasks()
     })
 }
 
@@ -174,7 +180,6 @@ function updateTask() {
         id: instruction.id,
         description: instruction.value
     }))
-    // debugger
 
     const task = {
         name: event.target.querySelector('#task-name').value,
@@ -199,19 +204,19 @@ function updateTask() {
         const taskInstance = new Task(task)
 
         if (task.routine === "Morning") {
-            taskFormDiv.innerHTML = ''
+            clearFormDiv()
             morningUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Homework") {
-               taskFormDiv.innerHTML = ''
+               clearFormDiv()
                homeworkUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Chore") {
-               taskFormDiv.innerHTML = ''
+               clearFormDiv()
                choresUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Bedtime") {
-               taskFormDiv.innerHTML = ''
+               clearFormDiv()
                bedtimeUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "") {
-               taskFormDiv.innerHTML = ''
+               clearFormDiv()
                miscUl.innerHTML = taskInstance.renderTask()
            }
         clickOnTasks()
@@ -225,7 +230,7 @@ function taskForm() {
         <form>
             <label for="name">Task:</label>      
             <input type="text" id="task-name" placeholder="Task Name">
-            <label for="completed">Click Box If Task Is Not Complete:</label>
+            <label>Click Box If Task Is Complete:</label>
             <input type="checkbox" id="completed" value="false"><br>
             <label for="routine">Routine:</label>
             <select name="routine" id="task-routine">
@@ -280,6 +285,30 @@ function clickOnTasks() {
     newTaskForm.addEventListener('click', showNewForm)
     document.querySelectorAll('#delete').forEach(task => task.addEventListener('click', deleteTask))
     document.querySelectorAll('#update-task').forEach(task => task.addEventListener('click', editTask))
+}
+
+function clearFormDiv() {
+    taskFormDiv.innerHTML = ''
+}
+
+function clearMorningUl() {
+    morningUl.innerHTML = ''
+}
+
+function clearHomeworkUl() {
+    homeworkUl.innerHTML = ''
+}
+
+function clearChoresUl() {
+    choresUl.innerHTML = ''
+}
+
+function clearBedtimeUl() {
+    bedtimeUl.innerHTML = ''
+}
+
+function clearMiscUl() {
+    miscUl.innerHTML = ''
 }
 
 // function clickOnCheckbox() {
