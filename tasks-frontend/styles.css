@@ -4,11 +4,45 @@ body {
     background-color: lightgrey;
 }
 
+h2 {
+    font-family: 'Press Start 2P';
+    font-size: 30px;
+}
+
+a {
+    font-family: ;
+}
+
 .header {
     width: 100%;
     height: 80px;
     display: block;
     background-color: #708090;
+}
+
+span.navigation {
+    background-color: dodgerblue;
+    height: 25%;
+    float: left;
+    display: table-cell;
+    vertical-align: bottom;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 60px;
+    padding-bottom: 0px;
+}
+
+a#new-task-form {
+    font-family: 'Nanum Pen Script';
+    font-size: 20px;
+    padding-right: 5px;
+    color: black;
+}
+
+a#tasks {
+    font-family: 'Nanum Pen Script';
+    font-size: 20px;
+    color: black
 }
 
 .inner-header {
@@ -22,7 +56,7 @@ body {
 .logo-container {
     height: 100%;
     display: table;
-    float: left;
+    padding-left: 240px
 }
 
 .logo-container h1 {
@@ -32,6 +66,8 @@ body {
    font-family: 'Londrina Sketch';
    font-size: 64px;
 }
+
+
 
 hr {
     display: block;
