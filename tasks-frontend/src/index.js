@@ -243,6 +243,7 @@ function taskForm() {
 function addFormInputs() {
     const newForm = document.querySelector('form');
     const addBtn = document.createElement('button');
+    addBtn.id = "add-input"
     taskFormDiv.appendChild(addBtn)
     addBtn.innerHTML = "Add an Instruction"
 

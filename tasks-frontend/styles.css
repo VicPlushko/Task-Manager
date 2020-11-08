@@ -4,16 +4,9 @@ body {
     background-color: lightgrey;
 }
 
-h2 {
-    font-family: 'Press Start 2P';
-    font-size: 30px;
-}
-
-a {
-    font-family: ;
-}
-
 .header {
+    background-image: url(https://sm.ign.com/t/ign_ap/news/n/nintendo-w/nintendo-working-to-meet-fans-soaring-demand-for-a_uccy.1200.png);
+    background-size: 165px;
     width: 100%;
     height: 80px;
     display: block;
@@ -42,21 +35,20 @@ a#new-task-form {
 a#tasks {
     font-family: 'Nanum Pen Script';
     font-size: 20px;
-    color: black
+    color: black;
 }
 
 .inner-header {
-    width: 1000px;
+    width: 850px;
     height: 100%;
     display: block;
     margin: 0 auto;
-    background-color: #1E90FF
 }
 
 .logo-container {
     height: 100%;
     display: table;
-    padding-left: 240px
+    padding-left: 100px
 }
 
 .logo-container h1 {
@@ -65,9 +57,8 @@ a#tasks {
    vertical-align: middle;
    font-family: 'Londrina Sketch';
    font-size: 64px;
+   background-color: dodgerblue;
 }
-
-
 
 hr {
     display: block;
@@ -81,28 +72,94 @@ hr {
     border-width: 3px;
 }
 
-button#delete {
-    background: red;
-    box-shadow: 5px black;
-    border: outset;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
+h2 {
+    font-family: 'Press Start 2P';
+    font-size: 30px;
+    color: rgb(216, 30, 5);
+}
+
+h3 {
+    font-family: 'Permanent Marker';
+    font-size: 30px;
+    color: blue;
+}
+
+a {
+    font-family: 'Permanent Marker';
+    font-size: 26px;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-left: 10px;
+    color: blue;
+}
+
+.show-task li {
+    font-family: 'Schoolbell';
+    font-size: 22px;
+    list-style-type: disc;
+}
+
+label {
+    font-family: 'Nanum Pen Script';
+    font-size: 25px;
+}
+
+input[type=text]#task-name {
+    width: 12%;
+    padding: 3px 0px;
+    margin: 3px 0;
+    box-sizing: border-box;
+}
+
+select#taskroutine {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+input[type=submit] {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+
+button#add-input {
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+
+input.task-instruction {
+    width: 12%;
+    padding: 3px 0px;
+    margin: 3px 0;
+    box-sizing: border-box;
+}
+
+button#delete {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 2px 2px;
+    cursor: pointer;
 }
 
 button#update-task {
-    background: green;
-    box-shadow: 5px black;
-    border: outset;
+    background-color: green;
+    border: none;
     color: white;
-    padding: 5px 10px;
-    text-align: center;
+    padding: 10px 20px;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-left: 10px;
+    margin: 2px 2px;
+    cursor: pointer;
 }
