@@ -9,3 +9,7 @@ Navigate to https://github.com/VicPlushko/task-manager click on the green code b
 Run 'bundle install' as soon as you change your directory into the backend of the project.
 
 ###Contributors Guide### Update the README.md with details of changes to the interface, if you install a new gem please add it to the Gemfile. Create a pull request with all proper documentation and the request will be merged after approval by an admin.
+
+VicPlushko/task-manager is licensed under the
+
+MIT License
