@@ -216,18 +216,23 @@ function updateTask() {
 
         if (task.routine === "Morning") {
             clearFormDiv()
+            clearMorningUl()
             morningUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Homework") {
                clearFormDiv()
+               clearHomeworkUl()
                homeworkUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Chore") {
                clearFormDiv()
+               clearChoresUl()
                choresUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "Bedtime") {
                clearFormDiv()
+               clearBedtimeUl()
                bedtimeUl.innerHTML = taskInstance.renderTask()
            } else if (task.routine === "") {
                clearFormDiv()
+               clearMiscUl()
                miscUl.innerHTML = taskInstance.renderTask()
            }
         clickOnTasks()

@@ -96,8 +96,5 @@ class Task {
                 miscUl.appendChild(div)
             }
         }
-
     }
-
-
 }
