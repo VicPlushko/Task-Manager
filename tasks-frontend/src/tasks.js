@@ -29,8 +29,12 @@ class Task {
     let editForm2 = ``
     let instructions = this.instructions
     for(let i = 0; i < instructions.length; i++) {
-       editForm2 += `<label for="instruction">Instruction</label>
-                   <input type="text" id="${instructions[i].id}" class="edit-task-instructions" value="${instructions[i].description}"><br>`
+        const checked = instructions[i].completed ? "checked" : ""
+       editForm2 += `<div class="instruction-detail">
+                   <label for="instruction">Instruction</label>
+                   <input type="text" id="${instructions[i].id}" class="edit-task-instructions" value="${instructions[i].description}">
+                   <label for="checkbox">Completed?:</label>
+                   <input type="checkbox" class="instructions-check" ${checked}></div><br>`
     }
     
     const editForm3 = `
@@ -51,6 +55,7 @@ class Task {
     renderSingleTask() {
         const div = document.createElement('div');
         div.className = "show-task"
+        div.id = `${this.id}`
         let taskH3 = document.createElement('h3')
         taskH3.innerHTML = `${this.name}`
         let ul = document.createElement('ul')
@@ -58,17 +63,25 @@ class Task {
         let instructions = this.instructions
     
         for (let i = 0; i < instructions.length; i++) {
+            const instructionDetail = document.createElement('div')
+            instructionDetail.className = 'instruction-detail'
+            instructionDetail.id = `${this.routine}`
             const li = document.createElement('li')
             const checkbox = document.createElement('input')
             checkbox.type = "checkbox"
             checkbox.className = "checkbox"
-            checkbox.checked = false
-            li.appendChild(checkbox)
-
-            const text = document.createTextNode(`${instructions[i].description}`)
-            li.appendChild(text)
+            checkbox.checked = instructions[i].completed
+            checkbox.id = instructions[i].id
+            checkbox.addEventListener('click', updateInstruction)
+            instructionDetail.appendChild(checkbox)
+            
+            const text = document.createElement('label')
+            text.className = "description"
+            text.innerHTML = `${instructions[i].description}`
+            instructionDetail.appendChild(text)
         
             ul.appendChild(li)
+            li.appendChild(instructionDetail)
             div.appendChild(taskH3)
             div.appendChild(ul)
             if (this.routine === "Morning") {
@@ -83,5 +96,8 @@ class Task {
                 miscUl.appendChild(div)
             }
         }
+
     }
+
+
 }

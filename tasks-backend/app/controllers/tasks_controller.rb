@@ -34,7 +34,7 @@ class TasksController < ApplicationController
   def update
     params[:descriptions].each do |instruction|
       @instruction = Instruction.find(instruction[:id])
-      @instruction.update(description: instruction[:description])
+      @instruction.update(description: instruction[:description], completed: instruction[:completed])
     end
     if @task.update(task_params)
       render json: @task
