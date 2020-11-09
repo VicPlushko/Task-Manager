@@ -347,19 +347,14 @@ function updateInstruction() {
             const taskInstance = new Task(task)
 
             if (task.routine === "Morning") {
-                clearFormDiv()
                 morningUl.innerHTML = taskInstance.renderTask()
                } else if (task.routine === "Homework") {
-                   clearFormDiv()
                    homeworkUl.innerHTML = taskInstance.renderTask()
                } else if (task.routine === "Chore") {
-                   clearFormDiv()
                    choresUl.innerHTML = taskInstance.renderTask()
                } else if (task.routine === "Bedtime") {
-                   clearFormDiv()
                    bedtimeUl.innerHTML = taskInstance.renderTask()
                } else if (task.routine === "") {
-                   clearFormDiv()
                    miscUl.innerHTML = taskInstance.renderTask()
                }
             clickOnTasks()
