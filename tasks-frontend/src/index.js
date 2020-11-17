@@ -171,7 +171,7 @@ function editTask() {
         taskFormDiv.innerHTML = editForm
         document.querySelector("form").addEventListener('submit', updateTask)
     })
-    .then(_ => {
+    .then(() => {
         instructions = document.querySelectorAll('.instructions-check')
         taskStatus = document.getElementById('completed')
         for(var i = 0; i < instructions.length; i++) {
@@ -237,6 +237,58 @@ function updateTask() {
            }
         clickOnTasks()
     })
+}
+
+function updateInstruction() {
+    const taskId = document.querySelector('.show-task').id
+    let editInstructions = document.querySelectorAll('.instruction-detail')
+    let instructionArray = []
+    editInstructions.forEach(instruction => instructionArray.push({
+        id: instruction.querySelector(":scope > .checkbox").id,
+        description: instruction.querySelector(":scope > .description").textContent,
+        completed: instruction.querySelector(":scope > .checkbox").checked
+    }))
+
+    const task = {
+        name: document.querySelector('.show-task h3').textContent,
+        completed: (instructionArray.filter(inst => inst.completed === false).length === 0) ? true : false,
+        routine: document.querySelector('.instruction-detail').id,
+        descriptions: instructionArray
+    }
+
+    const configObj = {
+        method: 'PATCH',
+        body: JSON.stringify(task),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+
+    fetch(BASE_URL + `/tasks/${taskId}`, configObj)
+    .then(response => response.json())
+    .then(task => {
+        
+        if (task.instructions.filter(instruction => instruction.completed === false).length === 0) {
+            
+            const taskInstance = new Task(task)
+
+            if (task.routine === "Morning") {
+                morningUl.innerHTML = taskInstance.renderTask()
+               } else if (task.routine === "Homework") {
+                   homeworkUl.innerHTML = taskInstance.renderTask()
+               } else if (task.routine === "Chore") {
+                   choresUl.innerHTML = taskInstance.renderTask()
+               } else if (task.routine === "Bedtime") {
+                   bedtimeUl.innerHTML = taskInstance.renderTask()
+               } else if (task.routine === "") {
+                   miscUl.innerHTML = taskInstance.renderTask()
+               }
+            clickOnTasks()
+        } else {
+            console.log("Do nothing, not all instructions are completed")
+        }
+    })
 }
 
 //  ********** helpers for generating HTML and adding event listeners *******************************
@@ -317,57 +369,7 @@ function updateDisplay() {
         }   
 }
 
-function updateInstruction() {
-    const taskId = document.querySelector('.show-task').id
-    let editInstructions = document.querySelectorAll('.instruction-detail')
-    let instructionArray = []
-    editInstructions.forEach(instruction => instructionArray.push({
-        id: instruction.querySelector(":scope > .checkbox").id,
-        description: instruction.querySelector(":scope > .description").textContent,
-        completed: instruction.querySelector(":scope > .checkbox").checked
-    }))
 
-    const task = {
-        name: document.querySelector('.show-task h3').textContent,
-        completed: (instructionArray.filter(inst => inst.completed === false).length === 0) ? true : false,
-        routine: document.querySelector('.instruction-detail').id,
-        descriptions: instructionArray
-    }
-
-    const configObj = {
-        method: 'PATCH',
-        body: JSON.stringify(task),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    }
-
-    fetch(BASE_URL + `/tasks/${taskId}`, configObj)
-    .then(response => response.json())
-    .then(task => {
-        
-        if (task.instructions.filter(instruction => instruction.completed === false).length === 0) {
-            
-            const taskInstance = new Task(task)
-
-            if (task.routine === "Morning") {
-                morningUl.innerHTML = taskInstance.renderTask()
-               } else if (task.routine === "Homework") {
-                   homeworkUl.innerHTML = taskInstance.renderTask()
-               } else if (task.routine === "Chore") {
-                   choresUl.innerHTML = taskInstance.renderTask()
-               } else if (task.routine === "Bedtime") {
-                   bedtimeUl.innerHTML = taskInstance.renderTask()
-               } else if (task.routine === "") {
-                   miscUl.innerHTML = taskInstance.renderTask()
-               }
-            clickOnTasks()
-        } else {
-            console.log("Do nothing, not all instructions are completed")
-        }
-    })
-}
     
 
 function clearFormDiv() {
